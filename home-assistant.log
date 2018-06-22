@@ -1,0 +1,164 @@
+2018-06-21 16:42:29 ERROR (MainThread) [homeassistant.core] Timer got out of sync. Resetting
+2018-06-21 16:42:29 WARNING (MainThread) [aiohttp.websocket] websocket connection is closing.
+2018-06-21 16:42:29 ERROR (MainThread) [aiohttp.access] Error in logging
+Traceback (most recent call last):
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 502, in __get__
+    return inst._cache[self.name]
+KeyError: 'remote'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 466, in log
+    for key, value in fmt_info:
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 458, in <genexpr>
+    for key, method in self._methods)
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 416, in _format_a
+    ip = request.remote
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 504, in __get__
+    val = self.wrapped(inst)
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/web_request.py", line 332, in remote
+    peername = self.transport.get_extra_info('peername')
+  File "/usr/lib/python3.5/asyncio/sslproto.py", line 306, in get_extra_info
+    return self._ssl_protocol._get_extra_info(name, default)
+  File "/usr/lib/python3.5/asyncio/sslproto.py", line 546, in _get_extra_info
+    return self._transport.get_extra_info(name, default)
+AttributeError: 'NoneType' object has no attribute 'get_extra_info'
+2018-06-21 16:42:44 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall climate.set_fan_mode: fan_mode=auto, entity_id=['climate.mitsu']>
+Traceback (most recent call last):
+  File "/usr/lib/python3.5/configparser.py", line 786, in get
+    value = d[option]
+  File "/usr/lib/python3.5/collections/__init__.py", line 881, in __getitem__
+    return self.__missing__(key)            # support subclasses that define __missing__
+  File "/usr/lib/python3.5/collections/__init__.py", line 873, in __missing__
+    raise KeyError(key)
+KeyError: 'auto_26'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/srv/homeassistant/lib/python3.5/site-packages/homeassistant/core.py", line 1007, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/srv/homeassistant/lib/python3.5/site-packages/homeassistant/components/climate/__init__.py", line 379, in async_fan_mode_set_service
+    await climate.async_set_fan_mode(fan)
+  File "/usr/lib/python3.5/asyncio/futures.py", line 380, in __iter__
+    yield self  # This tells Task to wait for completion.
+  File "/usr/lib/python3.5/asyncio/tasks.py", line 304, in _wakeup
+    future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 293, in result
+    raise self._exception
+  File "/usr/lib/python3.5/concurrent/futures/thread.py", line 55, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/homeassistant/.homeassistant/custom_components/climate/broadlink.py", line 295, in set_fan_mode
+    self.send_ir()
+  File "/home/homeassistant/.homeassistant/custom_components/climate/broadlink.py", line 167, in send_ir
+    command = self._commands_ini.get(section, value)
+  File "/usr/lib/python3.5/configparser.py", line 789, in get
+    raise NoOptionError(option, section)
+configparser.NoOptionError: No option 'auto_26' in section: 'cool'
+2018-06-21 16:43:08 ERROR (MainThread) [homeassistant.core] Error executing service <ServiceCall climate.set_temperature: temperature=25.0, entity_id=['climate.mitsu']>
+Traceback (most recent call last):
+  File "/usr/lib/python3.5/configparser.py", line 786, in get
+    value = d[option]
+  File "/usr/lib/python3.5/collections/__init__.py", line 881, in __getitem__
+    return self.__missing__(key)            # support subclasses that define __missing__
+  File "/usr/lib/python3.5/collections/__init__.py", line 873, in __missing__
+    raise KeyError(key)
+KeyError: 'auto_25'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/srv/homeassistant/lib/python3.5/site-packages/homeassistant/core.py", line 1007, in _event_to_service_call
+    await service_handler.func(service_call)
+  File "/srv/homeassistant/lib/python3.5/site-packages/homeassistant/components/climate/__init__.py", line 338, in async_temperature_set_service
+    await climate.async_set_temperature(**kwargs)
+  File "/usr/lib/python3.5/asyncio/futures.py", line 380, in __iter__
+    yield self  # This tells Task to wait for completion.
+  File "/usr/lib/python3.5/asyncio/tasks.py", line 304, in _wakeup
+    future.result()
+  File "/usr/lib/python3.5/asyncio/futures.py", line 293, in result
+    raise self._exception
+  File "/usr/lib/python3.5/concurrent/futures/thread.py", line 55, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/home/homeassistant/.homeassistant/custom_components/climate/broadlink.py", line 283, in set_temperature
+    self.send_ir()
+  File "/home/homeassistant/.homeassistant/custom_components/climate/broadlink.py", line 167, in send_ir
+    command = self._commands_ini.get(section, value)
+  File "/usr/lib/python3.5/configparser.py", line 789, in get
+    raise NoOptionError(option, section)
+configparser.NoOptionError: No option 'auto_25' in section: 'cool'
+2018-06-21 16:47:18 ERROR (MainThread) [aiohttp.access] Error in logging
+Traceback (most recent call last):
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 502, in __get__
+    return inst._cache[self.name]
+KeyError: 'remote'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 466, in log
+    for key, value in fmt_info:
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 458, in <genexpr>
+    for key, method in self._methods)
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 416, in _format_a
+    ip = request.remote
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/helpers.py", line 504, in __get__
+    val = self.wrapped(inst)
+  File "/srv/homeassistant/lib/python3.5/site-packages/aiohttp/web_request.py", line 332, in remote
+    peername = self.transport.get_extra_info('peername')
+  File "/usr/lib/python3.5/asyncio/sslproto.py", line 306, in get_extra_info
+    return self._ssl_protocol._get_extra_info(name, default)
+  File "/usr/lib/python3.5/asyncio/sslproto.py", line 546, in _get_extra_info
+    return self._transport.get_extra_info(name, default)
+AttributeError: 'NoneType' object has no attribute 'get_extra_info'
+2018-06-21 16:47:21 ERROR (Thread-11) [xiaomi_gateway] Got error element in data {"error":"Invalid key"}
+2018-06-21 16:47:21 ERROR (Thread-11) [xiaomi_gateway] Got error element in data {"error":"Invalid key"}
+2018-06-21 16:47:22 ERROR (Thread-18) [xiaomi_gateway] Got error element in data {"error":"Invalid key"}
+2018-06-21 16:47:22 ERROR (Thread-18) [xiaomi_gateway] Got error element in data {"error":"Invalid key"}
+2018-06-21 16:48:03 ERROR (Thread-9) [homeassistant.components.media_extractor] ERROR: 'Link' is not a valid URL. Set --default-search "ytsearch" (or run  youtube-dl "ytsearch:Link" ) to search YouTube
+2018-06-21 16:48:03 ERROR (Thread-9) [homeassistant.components.media_extractor] Could not retrieve data for the URL: Link
+2018-06-21 16:49:22 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-21 16:49:22 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-21 16:49:22 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-21 16:49:22 WARNING (Thread-12) [pychromecast.controllers] STOP command requested but no session is active.
+2018-06-21 16:50:22 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_off
+2018-06-21 16:50:22 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_off
+2018-06-21 16:50:22 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_off
+2018-06-21 16:55:01 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-21 16:55:01 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-21 16:55:01 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-21 16:55:21 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-21 16:55:21 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-21 16:55:21 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-21 16:55:39 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-21 16:55:39 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-21 16:55:39 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-21 16:55:39 WARNING (Thread-19) [pychromecast.controllers] STOP command requested but no session is active.
+2018-06-21 16:57:33 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_off
+2018-06-21 16:57:33 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_off
+2018-06-21 16:57:33 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_off
+2018-06-21 16:57:58 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_off
+2018-06-21 16:57:58 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_off
+2018-06-21 16:57:58 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_off
+2018-06-21 16:58:40 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-21 16:58:40 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-21 16:58:40 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-21 16:58:40 WARNING (Thread-16) [pychromecast.controllers] STOP command requested but no session is active.
+2018-06-21 17:08:14 WARNING (Thread-26) [pychromecast.socket_client] Heartbeat timeout, resetting connection
+2018-06-21 20:12:41 WARNING (Thread-24) [pychromecast.socket_client] Heartbeat timeout, resetting connection
+2018-06-21 20:12:48 ERROR (Thread-24) [pychromecast.socket_client] Failed to connect, retrying in 5.0s
+2018-06-21 21:16:04 WARNING (Thread-25) [pychromecast.socket_client] Heartbeat timeout, resetting connection
+2018-06-21 21:16:07 ERROR (Thread-25) [pychromecast.socket_client] Failed to connect, retrying in 5.0s
+2018-06-22 02:19:41 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-22 02:19:41 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-22 02:19:41 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-22 02:19:41 WARNING (Thread-20) [pychromecast.controllers] STOP command requested but no session is active.
+2018-06-22 02:25:38 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-22 02:25:38 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-22 02:25:38 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-22 02:30:43 WARNING (MainThread) [homeassistant.core] Unable to find service input_text/turn_on
+2018-06-22 02:30:43 WARNING (MainThread) [homeassistant.core] Unable to find service input_select/turn_on
+2018-06-22 02:30:43 WARNING (MainThread) [homeassistant.core] Unable to find service input_number/turn_on
+2018-06-22 03:13:35 WARNING (Thread-26) [pychromecast.socket_client] Heartbeat timeout, resetting connection
+2018-06-22 03:14:05 ERROR (Thread-26) [pychromecast.socket_client] Failed to connect, retrying in 5.0s

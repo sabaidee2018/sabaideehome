@@ -1,0 +1,389 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 14.8
+  longitude: 106.8333
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Vientiane
+  # Customization file
+  customize: !include customize.yaml
+  whitelist_external_dirs:
+  - /tmp    
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+ifttt:
+  key: hcrMdo-Ii7DQuoWKRiDhr
+sensor:
+  - platform: darksky
+    api_key: 13e40b0602cddbf8a47ae8c2d9f8e254
+    monitored_conditions:
+      - summary
+      - icon
+      - nearest_storm_distance
+      - apparent_temperature
+      - temperature
+      - humidity
+      - pressure
+      - uv_index
+  - platform: yr
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+mqtt:
+  broker: 192.168.0.101
+  port: 1883
+  username: homeassistant
+  password: sabaidee2018
+  protocol: 3.1.1
+# Enables configuration UI
+config:
+recorder:
+  purge_keep_days: 1
+http:
+  base_url: sabaidee.duckdns.org
+  ssl_certificate: /home/homeassistant/dehydrated/certs/sabaidee.duckdns.org/fullchain.pem 
+
+  ssl_key: /home/homeassistant/dehydrated/certs/sabaidee.duckdns.org/privkey.pem
+  api_password: "sabaidee2018"
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# Weather prediction
+
+
+
+# Text to speech
+tts:
+  - platform: google
+    
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    language: 'en'
+
+# Cloud
+cloud:
+
+group:
+  default_view:
+    view: yes
+    icon: mdi:home-circle
+    entities:
+      - group.mode
+      - group.music
+      - media_player.googlehome3282
+      - media_player.master_bedroom_speaker_3
+      - media_player.mibox3
+      - media_player.samsung_6_series_55_ua55mu6300
+      - group.light
+      - group.aircon
+      - group.setup
+      - group.weather
+      - group.sensor
+      - group.datetime
+      - group.security
+  mode:
+    name: Home mode
+    view: no
+    icon: mdi:home
+    
+    entities:
+      - script.iamhome
+      - script.iamleaving
+  security:
+    name: Security
+    view: no
+    icon: mdi:security
+    
+    entities:
+      - binary_sensor.door_window_sensor_158d00020429ba
+      - automation.notify_door_close
+      - automation.notify_door_open
+      
+  weather:
+    name: Weather
+    view: no
+    icon: mdi:weather-cloudy
+    entities:
+      - sun.sun
+      - sensor.yr_symbol
+      - sensor.dark_sky_apparent_temperature
+      - sensor.dark_sky_humidity
+      - sensor.dark_sky_icon
+      - sensor.dark_sky_nearest_storm_distance
+      - sensor.dark_sky_pressure
+      - sensor.dark_sky_summary
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_uv_index
+  datetime:
+    name: Date & Time
+    view: no
+    icon: mdi:camera-timer
+    entities:
+      - sensor.date
+      - sensor.time
+  sensor:
+    name: Date & Time
+    view: no
+    icon: mdi:video-input-antenna
+    entities:
+      - sensor.illumination_7811dcded52d
+      
+  music:
+    name: Music
+    view: no
+    icon: mdi:music
+    entities:
+
+      - input_text.music
+      - input_number.volume
+      - input_select.sourcemusic
+      - script.play_music
+      - script.stop_music
+  setup:
+    name: Automation Setting
+    view: no
+    icon: mdi:settings
+    entities:
+      - automation.automation_0
+      - input_datetime.wakeup
+      - automation.remind_you_when_bedtime_is_coming
+      - automation.play_music_on_bedtime
+      - input_datetime.bedtime
+      
+  light:
+    name: Light
+    view: no
+    icon: mdi:lightbulb-on
+    entities:
+      - switch.main_light
+      - light.gateway_light_7811dcded52d
+  aircon:
+    name: Air Conditioner
+    view: no
+    icon: mdi:air-conditioner
+    entities:
+      - switch.air_conditioner
+      - input_select.temperature
+      - input_select.fan
+automation: !include automations.yaml
+script:
+  iamhome:
+    sequence:
+
+      - service: tts.google_say
+        entity_id: media_player.googlehome3282
+        data:
+          message: "Welcome home, my boss" 
+          language: 'en'
+      - service: switch.turn_on
+        entity_id: switch.air_conditioner
+      - service: switch.turn_on
+        entity_id: switch.main_light
+      - service: media_player.turn_on
+        entity_id: media_player.samsung_6_series_55_ua55mu6300
+        
+        
+  iamleaving:
+    sequence:
+
+      - service: tts.google_say
+        entity_id: media_player.googlehome3282
+        data:
+          message: "Goodbye, my boss" 
+          language: 'en'
+      - service: switch.turn_off
+        entity_id: switch.air_conditioner
+      - service: switch.turn_off
+        entity_id: switch.main_light
+      - service: media_player.turn_off
+        entity_id: media_player.samsung_6_series_55_ua55mu6300
+        
+  play_music:
+    sequence:
+
+      - service: tts.google_say
+        entity_id: media_player.googlehome3282
+        data:
+          message: "Turn on music" 
+          language: 'en'
+      
+      - service: media_player.volume_set
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.sourcemusic', 'Google Chrome Cast') %}
+             media_player.master_bedroom_speaker_3
+            {% elif is_state('input_select.sourcemusic', 'Mi Box') %}
+             media_player.mibox3
+            {% endif %}
+          volume_level: '{{states("input_number.volume")|float/100}}'
+      - service: media_extractor.play_media
+        
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.sourcemusic', 'Google Chrome Cast') %}
+             media_player.master_bedroom_speaker_3
+            {% elif is_state('input_select.sourcemusic', 'Mi Box') %}
+             media_player.mibox3
+            {% endif %}
+          media_content_id: "{{states('input_text.music')}}"
+          media_content_type: "music"
+  stop_music:
+    sequence:
+      - service: media_player.media_stop
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.sourcemusic', 'Google Chrome Cast') %}
+             media_player.master_bedroom_speaker_3
+            {% elif is_state('input_select.sourcemusic', 'Mi Box') %}
+             media_player.mibox3
+            {% endif %}
+switch:
+  - platform: mqtt
+    name: Main Light
+    command_topic: "relay/mainlight"
+    state_topic: "relay/mainlightstate"
+    payload_on: "1"
+    payload_off: "0"
+    optimistic: false
+    qos: 0
+    retain: true
+  - platform: broadlink
+    host: 192.168.0.127
+    mac: '78:0F:77:18:0B:49'
+    timeout: 15
+    switches:
+      air_conditioner:
+        friendly_name: "Air Conditioner"
+        command_on: 'JgDYAAABKJQSOBI4EhISExISEhMRORE4EjgSOBI4EhISExISEjgSExISEhMSEhITERMSOBI4EjgRExITERMSExETEhMRExITERMSExETEhMRExI4EhISExISEhMSEhITEhISExI4ERMSExETEhMRExITETgSExITERMSEhITEhISExISEhMSEhITEhISExISEhMSEhITEhISExISEhMSEhITEjgRExITERMSExETEhMRExITERMSExE4EhMSOBETEhMRExITERMSOBI4EjgRORETEhMRExI4EgANBQ=='
+        command_off: 'JgDYAAABKZMUNhM3FBATEhMRExITNxM3EzcSNxQ2FBETERQQFDYUERQQFBEUEBQRFBAUNhQ2FDYTERQRExEUERMRFBETERQRExEUERMRFBETERQ2FBAUERQQFBEUEBQRFBAUERQ2ExEUERMRFBAUERQQFDYUERQQFBEUEBQRExEUERMRFBETERQRExEUERMRFBETERQQFBEUEBQRFBAUERQQFBEUEBQRFBAUERMRExITERMSExEUERM2FBETNxQQExITERMSExETNxM3EzcTNxISFDYUNhMRFAANBQ=='
+
+climate:
+  - platform: broadlink
+    name: Mitsu
+    host: 192.168.0.127
+    mac: '78:0F:77:18:0B:49'
+    ircodes_ini: 'broadlink_climate_codes/mitsubishi_electric.ini'
+    min_temp: 16
+    max_temp: 30
+    target_temp: 25
+    temp_sensor: sensor.broadlink_sensor_temperature
+    default_operation_from_idle: cool
+    default_operation: cool
+    default_fan_mode: mid
+    customize:
+      operations:
+        - idle
+        - cool
+        
+      fan_modes:
+        - low
+        - mid
+        - high
+        - highest
+        
+        
+        
+        
+media_extractor:
+
+
+xiaomi_aqara:
+
+  discovery_retry: 10
+  gateways:
+    - mac: 7811dcded52d
+      key: 4dcaf267a86a4dd2
+      host: 192.168.0.109   
+    
+input_text:
+  music:
+    name: Music
+    initial: Link
+input_number:
+  volume:
+    name: Volume
+    initial: 50
+    min: 0
+    max: 100
+    step: 1
+input_select:
+  sourcemusic:
+    name: Source
+    options:
+     - "Google Chrome Cast"
+     - "Mi Box"
+  temperature:
+    name: Temperature
+    options:
+     - 18
+     - 19
+     - 20
+     - 21
+     - 22
+     - 23
+     - 24
+     - 25
+     - 26
+     - 27
+     - 28
+     - 29
+     - 30
+     - 31
+    initial: 25
+    icon: mdi:temperature-celsius
+  fan:
+    name: Fan speed
+    options:
+      - Low
+      - Mid
+      - High
+      - Strong
+    initial: "Strong"
+    icon: mdi:fan
+     
+     
+ 
+input_datetime:
+  wakeup:
+    name: Wake up time
+    has_date: false
+    has_time: true
+  bedtime:
+    name: Bed time
+    has_date: false
+    has_time: true

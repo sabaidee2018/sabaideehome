@@ -1,0 +1,34 @@
+media_player.mibox3:
+  friendly_name: 'Mi Box '
+media_player.master_bedroom_speaker_3:
+  friendly_name: Audio Chromecast
+media_player.googlehome3282:
+  friendly_name: Google Home Mini
+script.play_music:
+  friendly_name: Play Music
+  icon: mdi:play
+script.stop_music:
+  friendly_name: Stop Music
+  icon: mdi:stop
+automation.automation_0:
+  friendly_name: Play music to wake you up
+  icon: mdi:play-circle-outline
+binary_sensor.door_window_sensor_158d00020429ba:
+  friendly_name: Door Sensor
+  icon: mdi:door
+sensor.illumination_7811dcded52d:
+  friendly_name: Light sensor
+  icon: mdi:alarm-light
+automation.remind_you_when_bedtime_is_coming:
+  friendly_name: Remind you when bedtime is coming
+automation.notify_door_close:
+  friendly_name: Notify Door Close
+  icon: mdi:door-closed
+automation.notify_door_open:
+  icon: mdi:door-open
+script.iamhome:
+  friendly_name: Home
+  icon: mdi:home-account
+script.iamleaving:
+  friendly_name: Away
+  icon: mdi:home-minus

@@ -1,0 +1,24 @@
+media_player.googlehome3282:
+  name:
+  platform: cast
+  unique_id: b5e1c6e1-1001-80ef-7bb6-c03abeeadbd3
+media_player.mibox3:
+  name:
+  platform: cast
+  unique_id: bdda3cbe-788e-3769-792a-11987f996e19
+media_player.master_bedroom_speaker_3:
+  name:
+  platform: cast
+  unique_id: e5e37ccc-9cf4-1c50-5408-2a5402212051
+sensor.illumination_7811dcded52d:
+  name:
+  platform: xiaomi_aqara
+  unique_id: illumination7811dcded52d
+binary_sensor.door_window_sensor_158d00020429ba:
+  name:
+  platform: xiaomi_aqara
+  unique_id: status158d00020429ba
+light.gateway_light_7811dcded52d:
+  name:
+  platform: xiaomi_aqara
+  unique_id: rgb7811dcded52d

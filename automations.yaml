@@ -1,0 +1,102 @@
+- trigger:
+    platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.wakeup.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  action:
+  - service: tts.google_say
+    entity_id: media_player.googlehome3282
+    data:
+      message: Time to wake up, my boss. Play music
+      language: en
+  - service: script.turn_on
+    entity_id: script.play_music
+  id: 6308cb1b4e66449380e32462b95488ce
+- trigger:
+    platform: template
+    value_template: '{{ states(''sensor.time'') == (((states.input_datetime.bedtime.attributes.timestamp)-900)
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  alias: remind you when bedtime is coming
+  action:
+  - service: tts.google_say
+    entity_id: media_player.googlehome3282
+    data:
+      message: bedtime is coming. prepare to sleep, my boss.
+      language: en
+  id: e6a9e066020a4f97b54b55b76d5a0bed
+- trigger:
+    platform: template
+    value_template: '{{ states(''sensor.time'') == (states.input_datetime.bedtime.attributes.timestamp
+      | int | timestamp_custom(''%H:%M'', False)) }}'
+  alias: Play music on bedtime
+  action:
+  - service: tts.google_say
+    entity_id: media_player.googlehome3282
+    data:
+      message: Time to bed. play music
+      language: en
+  - service: script.turn_on
+    entity_id: script.play_music
+  id: b6ee783634174a14a2bcb27778590300
+- id: '1528931259639'
+  alias: Volume
+  trigger:
+  - entity_id: input_number.volume
+    platform: state
+  condition: []
+  action:
+  - service: media_player.volume_set
+    data_template:
+      entity_id: "{% if is_state('input_select.sourcemusic', 'Google Chrome Cast')\
+        \ %}\n media_player.master_bedroom_speaker_3\n{% elif is_state('input_select.sourcemusic',\
+        \ 'Mi Box') %}\n media_player.mibox3\n{% endif %}"
+      volume_level: '{{states("input_number.volume")|float/100}}'
+- id: '1529591662581'
+  alias: Notify Door Open
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_158d00020429ba
+    from: 'on'
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.googlehome3282
+    data:
+      message: Door is opened
+      language: en
+- id: '1529591737233'
+  alias: Notify Door Close
+  trigger:
+  - entity_id: binary_sensor.door_window_sensor_158d00020429ba
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition: []
+  action:
+  - service: tts.google_say
+    entity_id: media_player.googlehome3282
+    data:
+      message: door is closed
+      language: en
+      
+- alias: Nhiệt độ máy lạnh
+  trigger:
+    platform: state
+    entity_id: input_select.temperature
+  action:
+  - service: climate.set_temperature
+    data_template:
+      entity_id: climate.mitsu
+      temperature: '{{ states(''input_select.temperature'') }}'
+- alias: Chế độ quạt
+  trigger:
+    platform: state
+    entity_id: input_select.fan
+  action:
+  - service: climate.set_fan_mode
+    data_template:
+      entity_id: climate.mitsu
+      fan_mode: "{% if is_state('input_select.fan', 'Low') %}\n  low\n{% elif is_state('input_select.fan',\
+        \ 'Mid') %}\n  mid\n{% elif is_state('input_select.fan', 'High') %}\n\
+        \  high\n{% elif is_state('input_select.fan', 'Strong') %}\n  auto\n{% endif\
+        \ %}"
